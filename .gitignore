@@ -1,5 +1,4 @@
-*.pth
-*.pkl
+rover_pretrained_10k.pth
 __pycache__/
 dataset/
 website_uploads/
