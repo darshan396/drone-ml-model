@@ -1,8 +1,0 @@
-torch.Size([2, 64]) = batch size =  2, number of features extracted = 64
-
-        # --- HEAD 1: Surface Analysis (Segmentation) ---
-        # This 1x1 convolution maps the 64 decoder features to your N classes
-        # e.g., 0=Safe Ground, 1=Rocks, 2=Craters, 3=Uneven
-        
-                # --- HEAD 2: Global Safety Decision (Classification) ---
-        # We can still keep this to give a quick "Go/No-Go" score
