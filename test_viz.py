@@ -58,7 +58,7 @@ def visualize():
 
         verdict = "SAFE" if verdict_class == 1 else "UNSAFE"
         color = "green" if verdict == "SAFE" else "red"
-        text = f"AdaBoost Confidence:\n{confidence:.2%}\n\nVerdict:\n{verdict}"
+        text = f"Landing Confidence:\n{confidence:.2%}\n\nResult:\n{verdict}"
         axes[idx, 2].text(0.5, 0.5, text, fontsize=16, ha='center', va='center', color=color, fontweight='bold')
         axes[idx, 2].axis('off')
 

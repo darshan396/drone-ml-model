@@ -1,4 +1,6 @@
 rover_pretrained_10k.pth
 __pycache__/
-dataset/
-website_uploads/
+data/
+uploads/
+prediction_results_pure_boost.png
+test_viz.py
