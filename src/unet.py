@@ -20,16 +20,13 @@ class RoverLanding(nn.Module):
     def __init__(self, n_channels=4, n_classes=4):
         super(RoverLanding, self).__init__()
         
-        # --- Encoder ---
         self.inc = DoubleConv(n_channels, 64)
         self.down1 = nn.Sequential(nn.MaxPool2d(2), DoubleConv(64, 128))
         self.down2 = nn.Sequential(nn.MaxPool2d(2), DoubleConv(128, 256))
         self.down3 = nn.Sequential(nn.MaxPool2d(2), DoubleConv(256, 512))
         
-        # --- Bottleneck ---
         self.bot = DoubleConv(512, 1024)
         
-        # --- Safety Head ---
         self.global_pool = nn.AdaptiveAvgPool2d((1, 1))
         self.safety_head = nn.Sequential(
             nn.Flatten(),
@@ -39,7 +36,6 @@ class RoverLanding(nn.Module):
             nn.Linear(256, 1)
         )
 
-        # --- Decoder ---
         self.up1 = nn.ConvTranspose2d(1024, 512, 2, stride=2)
         self.conv1 = DoubleConv(768, 512)
         self.up2 = nn.ConvTranspose2d(512, 256, 2, stride=2)
@@ -70,9 +66,7 @@ class RoverLanding(nn.Module):
         
         return segmentation_logits, safety_logit
 
-    # --- NEW HELPER METHOD FOR ADABOOST ---
     def get_features(self, x):
-        """Runs the encoder only and returns the 1024-feature vector"""
         x1 = self.inc(x)
         x2 = self.down1(x1)
         x3 = self.down2(x2)

@@ -17,7 +17,6 @@ TEST_DIR = "data/dataset/test_images"
 OUTPUT_FILE = "prediction_results_pure_boost.png"
 
 def visualize():
-    # Load Models
     unet = RoverLanding(n_classes=4).to(DEVICE)
     unet.load_state_dict(torch.load(UNET_PATH, map_location=DEVICE))
     unet.eval()
@@ -36,18 +35,14 @@ def visualize():
         x = torch.from_numpy(data).permute(2, 0, 1).unsqueeze(0).to(DEVICE)
 
         with torch.no_grad():
-            # Get Mask
             seg_logits, _ = unet(x)
             mask = seg_logits.argmax(dim=1).squeeze(0).cpu().numpy()
             
-            # Get Features using the new method
             features = unet.get_features(x).reshape(1, -1)
 
-        # AdaBoost Decision
         verdict_class = adaboost.predict(features)[0] 
         confidence = adaboost.predict_proba(features)[0][1]
 
-        # Display
         axes[idx, 0].imshow(data[:, :, 0], cmap='gray')
         axes[idx, 0].set_title(f"Input: {os.path.basename(img_path)}")
         axes[idx, 0].axis('off')
