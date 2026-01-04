@@ -4,3 +4,4 @@ data/
 uploads/
 prediction_results_pure_boost.png
 test_viz.py
+.vscode/
